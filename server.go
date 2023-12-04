@@ -7,6 +7,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/alegrecode/graphql-api-users-posts/database"
 	"github.com/alegrecode/graphql-api-users-posts/graph"
 )
 
@@ -17,6 +18,8 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+
+	database.Conexion()
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
