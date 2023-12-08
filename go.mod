@@ -5,6 +5,8 @@ go 1.20
 require (
 	github.com/99designs/gqlgen v0.17.40
 	github.com/vektah/gqlparser/v2 v2.5.10
+	gorm.io/driver/mysql v1.5.2
+	gorm.io/gorm v1.25.5
 )
 
 require (
@@ -26,6 +28,4 @@ require (
 	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/tools v0.9.3 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/mysql v1.5.2 // indirect
-	gorm.io/gorm v1.25.5 // indirect
 )

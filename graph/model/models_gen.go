@@ -3,8 +3,9 @@
 package model
 
 type InputPost struct {
-	Title string `json:"title"`
-	Text  string `json:"text"`
+	Title  string `json:"title"`
+	Text   string `json:"text"`
+	UserID int    `json:"userId"`
 }
 
 type InputUser struct {

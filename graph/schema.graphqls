@@ -20,6 +20,7 @@ input inputUser {
 input inputPost {
   title: String!
   text: String!
+  userId: Int!
 }
 
 type Query {
