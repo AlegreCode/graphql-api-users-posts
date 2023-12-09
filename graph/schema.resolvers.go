@@ -59,12 +59,16 @@ func (r *mutationResolver) DeletePost(ctx context.Context, id int) (*model.Post,
 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: Users - users"))
+	var users []*model.User
+	r.DB.Find(&users)
+	return users, nil
 }
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id int) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: User - user"))
+	user := model.User{}
+	r.DB.First(&user, id)
+	return &user, nil
 }
 
 // Posts is the resolver for the posts field.
