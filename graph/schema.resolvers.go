@@ -13,7 +13,13 @@ import (
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, user model.InputUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+	newUser := model.User{
+		Name:     user.Name,
+		Lastname: user.Lastname,
+	}
+
+	r.DB.Create(&newUser)
+	return &newUser, nil
 }
 
 // UpdateUser is the resolver for the updateUser field.
