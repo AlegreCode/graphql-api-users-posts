@@ -36,7 +36,10 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, id int, user model.In
 
 // DeleteUser is the resolver for the deleteUser field.
 func (r *mutationResolver) DeleteUser(ctx context.Context, id int) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: DeleteUser - deleteUser"))
+	deletedUser := model.User{}
+	r.DB.First(&deletedUser, id)
+	r.DB.Delete(&deletedUser)
+	return &deletedUser, nil
 }
 
 // CreatePost is the resolver for the createPost field.
