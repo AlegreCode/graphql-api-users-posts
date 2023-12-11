@@ -44,17 +44,34 @@ func (r *mutationResolver) DeleteUser(ctx context.Context, id int) (*model.User,
 
 // CreatePost is the resolver for the createPost field.
 func (r *mutationResolver) CreatePost(ctx context.Context, post model.InputPost) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: CreatePost - createPost"))
+	newPost := model.Post{
+		Title:  post.Title,
+		Text:   post.Text,
+		UserID: post.UserID,
+	}
+	r.DB.Create(&newPost)
+	return &newPost, nil
 }
 
 // UpdatePost is the resolver for the updatePost field.
 func (r *mutationResolver) UpdatePost(ctx context.Context, id int, post model.InputPost) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: UpdatePost - updatePost"))
+	updatedPost := model.Post{
+		ID:     id,
+		Title:  post.Title,
+		Text:   post.Text,
+		UserID: post.UserID,
+	}
+
+	r.DB.Save(&updatedPost)
+	return &updatedPost, nil
 }
 
 // DeletePost is the resolver for the deletePost field.
 func (r *mutationResolver) DeletePost(ctx context.Context, id int) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: DeletePost - deletePost"))
+	deletedPost := model.Post{}
+	r.DB.First(&deletedPost, id)
+	r.DB.Delete(&deletedPost)
+	return &deletedPost, nil
 }
 
 // Users is the resolver for the users field.
