@@ -6,7 +6,6 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/alegrecode/graphql-api-users-posts/graph/model"
 )
@@ -77,25 +76,29 @@ func (r *mutationResolver) DeletePost(ctx context.Context, id int) (*model.Post,
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 	var users []*model.User
-	r.DB.Find(&users)
+	r.DB.Preload("Posts").Find(&users)
 	return users, nil
 }
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id int) (*model.User, error) {
 	user := model.User{}
-	r.DB.First(&user, id)
+	r.DB.Preload("Posts").First(&user, id)
 	return &user, nil
 }
 
 // Posts is the resolver for the posts field.
 func (r *queryResolver) Posts(ctx context.Context) ([]*model.Post, error) {
-	panic(fmt.Errorf("not implemented: Posts - posts"))
+	var posts []*model.Post
+	r.DB.Preload("User").Find(&posts)
+	return posts, nil
 }
 
 // Post is the resolver for the post field.
 func (r *queryResolver) Post(ctx context.Context, id int) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: Post - post"))
+	post := model.Post{}
+	r.DB.Preload("User").First(&post, id)
+	return &post, nil
 }
 
 // Mutation returns MutationResolver implementation.
